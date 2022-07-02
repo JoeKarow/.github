@@ -18,25 +18,19 @@ jobs:
       - name: Identify package manager
         id: pkgman
         uses: joekarow/act-which-package-mgr@main
+      - name: Install package managers globally
+        run: npm -g install pnpm yarn
       - name: Setup node env
         if: ${{ success() }}
         uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
           cache: ${{ steps.pkgman.outputs.package_manager }}
-      - name: Install package manager globally
-        if: ${{steps.pkgman.outputs.package_manager != 'npm' }}
-        run: npm -g install ${{ steps.pkgman.outputs.package_manager }}
       - name: Install dependencies
         if: ${{ success() }}
         uses: jaid/action-npm-install@v1.2.4
         with:
           packageManager: ${{ steps.pkgman.outputs.package_manager }}
-      # - name: Prettier
-      #   uses: creyD/prettier_action@v4.2
-      #   with:
-      #     prettier_options: --ignore-unknown
-      #     only_changed: true
       - name: Run lint step
         if: ${{ success() }}
         run: npx ${{ steps.pkgman.outputs.package_manager }} run lint
