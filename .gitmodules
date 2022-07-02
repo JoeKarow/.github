@@ -1,3 +1,0 @@
-[submodule "workflow-templates"]
-	path = workflow-templates
-	url = git@github.com:JoeKarow/workflow-templates.git
