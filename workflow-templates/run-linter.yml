@@ -33,4 +33,4 @@ jobs:
           packageManager: ${{ steps.pkgman.outputs.package_manager }}
       - name: Run lint step
         if: ${{ success() }}
-        run: npx ${{ steps.pkgman.outputs.package_manager }} run lint
+        run: ${{ steps.pkgman.outputs.package_manager }} run lint
